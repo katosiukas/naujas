@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kliento informacijos peržiūros vaizdas</title>
+    <meta charset="utf-8">
+    		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    		<link rel="stylesheet" href="jqueryui.css">	
+		<link rel="stylesheet" href="main.css">		
+		<style>
+			body {background-color: #ADD8E6;
+			}
+			.anuliuotas, .sanuliuotas {
+				background-color: lightblue;
+			}
+			.ivykdytas, .sivykdytas {
+				background-color: lightgreen;
+			}
+			table {
+				border-collapse: colapse;
+			}
+			th {
+				background-color: lightgreen;			
+			}
+			th, td {
+				padding: 6px;
+				border: 1px solid grey;
+			}
+			.ch_lab {
+				display: inline-block ! important;
+			}
+		</style>
+	    <script
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous">
+	    </script>
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
+	    <script src="crud.js"></script>
+	    <script>
+		$( document ).ready ( function() {
+
+			$( '#keisti' ).click( function() {
+			
+				data_leid = $( this ).parent().parent();
+			
+				$( '#id' ).val( data_leid.data ( 'id' ) );
+				$( '#pav' ).val( data_leid.data ( 'pav' ) );
+				// ..
+			})
+		});			
+	</script>
+</head>
+<body>
+	<form action="/set" method="post"><!-- post nes post mappinimas java puseje -->
+		<label for="pav">Leidinys</label>
+		<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
+		<label for="data">Data</label>
+		<input type="text" name="data" id="data" value="" class="text ui-widget-content ui-corner-all">
+		<label for="vieta">Vieta</label>
+		<input type="text" name="vieta" id="vieta" value="" class="text ui-widget-content ui-corner-all">
+		<label for="leidykla">Leidykla</label>
+		<input type="text" name="leidykla" id="leidykla" value="" class="text ui-widget-content ui-corner-all">
+		<label for="kalba">Kalba</label>
+		<input type="text" name="kalba" id="kalba" value="" class="text ui-widget-content ui-corner-all">
+		<label for="kodai">Kodai</label>
+		<input type="text" name="kodai" id="kodai" value="" class="text ui-widget-content ui-corner-all">
+		<label for="apie">Apie</label>
+		<textarea name="apie" id="apie" class="text ui-widget-content ui-corner-all"></textarea>
+		<input type="hidden" name="id" id="id" value="0" class="text ui-widget-content ui-corner-all">		
+		<input type="submit" name="saugoti" id="saugoti" value="saugoti" class="text ui-widget-content ui-corner-all">	
+	</form>
+	<div id="leidiniai">
+		<table>
+			<tr>
+				<th>id</th><th>pav</th><th>data</th><th>vieta</th><th>leidykla</th><th>kalba</th><th>kodai</th><th>	apie</th><th>veiksmai</th>
+			</tr>
+			<tr th:each="leidinys : ${leidiniai}" th:data-id="${leidinys.id}"  th:data-pav="${leidinys.pav}"  th:data-data="${leidinys.data}" th:data-vieta="${leidinys.vieta}" th:data-leidykla="${leidinys.leidykla}" th:data-kalba="${leidinys.kalba}" th:data-kodai="${leidinys.kodai}" th:data-apie="${leidinys.apie}">
+				<td th:text="${leidinys.id}"></td>
+				<td th:text="${leidinys.pav}"></td>
+				<td th:text="${leidinys.data}"></td>
+				<td th:text="${leidinys.vieta}"></td>
+				<td th:text="${leidinys.leidykla}"></td>
+				<td th:text="${leidinys.kalba}"></td>
+				<td th:text="${leidinys.kodai}"></td>
+				<td th:text="${leidinys.apie}"></td>
+				<td><input type="button" name="keisti" id="keisti" value="keisti"></td>				
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
