@@ -45,8 +45,19 @@
 			
 				$( '#id' ).val( data_leid.data ( 'id' ) );
 				$( '#pav' ).val( data_leid.data ( 'pav' ) );
+				$( '#data' ).val( data_leid.data ( 'data' ) );
+				$( '#vieta' ).val( data_leid.data ( 'vieta' ) );
+				$( '#leidykla' ).val( data_leid.data ( 'leidykla' ) );
+				$( '#kalba' ).val( data_leid.data ( 'kalba' ) );
+				$( '#kodai' ).val( data_leid.data ( 'kodai' ) );
+				$( '#apie' ).val( data_leid.data ( 'apie' ) );
 				// ..
 			})
+			
+			
+			
+				
+			
 		});			
 	</script>
 </head>
@@ -61,7 +72,11 @@
 		<label for="leidykla">Leidykla</label>
 		<input type="text" name="leidykla" id="leidykla" value="" class="text ui-widget-content ui-corner-all">
 		<label for="kalba">Kalba</label>
-		<input type="text" name="kalba" id="kalba" value="" class="text ui-widget-content ui-corner-all">
+		<select id="kalba" name="kalba"  class="text ui-widget-content ui-corner-all">
+			<option hidden>Pasirinkti kalbą:</option>
+			<option  th:each="kalba : ${kalbos}" th:value="${kalba.kodas}" th:text="${kalba.pavadinimas}"></option>
+		</select>
+					  
 		<label for="kodai">Kodai</label>
 		<input type="text" name="kodai" id="kodai" value="" class="text ui-widget-content ui-corner-all">
 		<label for="apie">Apie</label>
@@ -83,9 +98,14 @@
 				<td th:text="${leidinys.kalba}"></td>
 				<td th:text="${leidinys.kodai}"></td>
 				<td th:text="${leidinys.apie}"></td>
-				<td><input type="button" name="keisti" id="keisti" value="keisti"></td>				
+				<td>
+					<input type="button" name="keisti" id="keisti" value="keisti" class="text ui-widget-content ui-corner-all">
+					<input type="button" name="salinti" id="salinti" value="šalinti" class="text ui-widget-content ui-corner-all">
+				</tr>
 			</tr>
 		</table>
 	</div>
+	
+
 </body>
 </html>
