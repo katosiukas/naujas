@@ -34,9 +34,18 @@
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous">
 	    </script>
-	    <!-- script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script -->	    
+	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
 	    <script>
 		$( document ).ready ( function() {
+		
+			var dialog, form;
+			
+      // emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+			      pav = $( "#pav" ),
+			      data= $( "#data" ),
+			      vieta = $( "#vieta" ),
+			      allFields = $( [] ).add( pav ).add( data ).add( vieta ),
+			      tips = $( ".validateTips" );			
 
 			$( '.keisti' ).on( 'click',  function() {
 			
@@ -51,6 +60,8 @@
 				$( '#kodai' ).val( data_leid.data ( 'kodai' ) );
 				$( '#apie' ).val( data_leid.data ( 'apie' ) );
 				// ..
+				dialog.dialog( "open" );
+
 			});
 			
 			$( '.del' ).on( 'click', function() {
@@ -73,12 +84,48 @@
 				$( '#kodai' ).val( '' );
 				$( '#apie' ).val(  ''  );
 
-			});			
+			});
+			
+			function addLeidinys() {
+			
+				$( '#set1' ).submit();
+			}
+
+			dialog = $( "#dialog-form" ).dialog({
+			
+			      autoOpen: false,
+			      height: 400,
+			      width: 350,
+			      modal: true,
+			      buttons: {
+				"Papildyti": addLeidinys,
+				"Atšaukti": function() {
+				  dialog.dialog( "close" );
+				}
+			      },
+			      close: function() {
+				form[ 0 ].reset();
+				allFields.removeClass( "ui-state-error" );
+			      }
+			    });
+			 /*
+			    form = dialog.find( "form" ).on( "submit", function( event ) {
+			      event.preventDefault();
+			      addUser();
+			    });
+			 */
+			 form = dialog.find( "form" );
+			 
+			    $( "#naujas" ).button().on( "click", function() {
+			      dialog.dialog( "open" );
+			    });
 		});			
 	</script>
 </head>
 <body>
-	<form action="/set" method="post"><!-- post nes post mappinimas java puseje -->
+<div id="dialog-form" title="Leidinio duomenys">
+  <p class="validateTips">All form fields are required.</p>
+	<form action="/set" method="post" id="set1"><!-- post nes post mappinimas java puseje -->
 		<label for="pav">Leidinys</label>
 		<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
 		<label for="data">Data</label>
@@ -98,9 +145,10 @@
 		<label for="apie">Apie</label>
 		<textarea name="apie" id="apie" class="text ui-widget-content ui-corner-all"></textarea>
 		<input type="hidden" name="id" id="id" value="0" class="text ui-widget-content ui-corner-all">		
-		<input type="submit" name="saugoti" id="saugoti" value="saugoti" class="text ui-widget-content ui-corner-all">	
-		<input type="button" name="valyti" id="valyti" value="valyti" class="text ui-widget-content ui-corner-all">			
 	</form>
+</div>	
+	<input type="button" name="naujas" id="naujas" value="papildyti" class="text ui-widget-content ui-corner-all">
+	<input type="button" name="valyti" id="valyti" value="valyti" class="text ui-widget-content ui-corner-all">
 	<form id="del1" method="get" action="/del">
 		<input type="hidden" name="id" id="id_del" value="0" class="text ui-widget-content ui-corner-all">			
 	</form>
