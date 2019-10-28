@@ -26,6 +26,22 @@ public class LeidiniaiController {
         return "leidiniai";
     }  
     
+    @GetMapping("/del")
+    public String salinti (@RequestParam Integer id) {
+    			
+		if (id > 0 ) {
+		
+		Optional <Leidiniai> found = leidiniaiRepository.findById( id );
+		
+		// variantas trynimui
+		if ( found.isPresent() ) {
+			
+			leidiniaiRepository.deleteById(id);
+			}
+		}
+        return "redirect:leidiniai";
+    }     
+    
 	@PostMapping(path="/set") // Map ONLY GET Requests
 	public String leidinio (@RequestParam Integer id, @RequestParam String pav
 			, @RequestParam String vieta

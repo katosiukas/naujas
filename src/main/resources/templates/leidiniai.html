@@ -34,12 +34,11 @@
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous">
 	    </script>
-	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	    
-	    <script src="crud.js"></script>
+	    <!-- script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script -->	    
 	    <script>
 		$( document ).ready ( function() {
 
-			$( '#keisti' ).click( function() {
+			$( '.keisti' ).on( 'click',  function() {
 			
 				data_leid = $( this ).parent().parent();
 			
@@ -52,12 +51,29 @@
 				$( '#kodai' ).val( data_leid.data ( 'kodai' ) );
 				$( '#apie' ).val( data_leid.data ( 'apie' ) );
 				// ..
-			})
+			});
 			
+			$( '.del' ).on( 'click', function() {
 			
+				data_leid = $( this ).parent().parent();
+				console.log( data_leid.data ( 'id' ) );
+				$( '#id_del' ).val( data_leid.data ( 'id' ) );
+				$( '#del1' ).submit();
+
+			});
 			
-				
+			$( '#valyti' ).on( 'click', function() {
 			
+				$( '#id' ).val( '0' );
+				$( '#pav' ).val( ''  );
+				$( '#data' ).val(  ''  );
+				$( '#vieta' ).val(  ''  );
+				$( '#leidykla' ).val(  ''  );
+				$( '#kalba' ).val(  ''  );
+				$( '#kodai' ).val( '' );
+				$( '#apie' ).val(  ''  );
+
+			});			
 		});			
 	</script>
 </head>
@@ -83,6 +99,10 @@
 		<textarea name="apie" id="apie" class="text ui-widget-content ui-corner-all"></textarea>
 		<input type="hidden" name="id" id="id" value="0" class="text ui-widget-content ui-corner-all">		
 		<input type="submit" name="saugoti" id="saugoti" value="saugoti" class="text ui-widget-content ui-corner-all">	
+		<input type="button" name="valyti" id="valyti" value="valyti" class="text ui-widget-content ui-corner-all">			
+	</form>
+	<form id="del1" method="get" action="/del">
+		<input type="hidden" name="id" id="id_del" value="0" class="text ui-widget-content ui-corner-all">			
 	</form>
 	<div id="leidiniai">
 		<table>
@@ -99,8 +119,8 @@
 				<td th:text="${leidinys.kodai}"></td>
 				<td th:text="${leidinys.apie}"></td>
 				<td>
-					<input type="button" name="keisti" id="keisti" value="keisti" class="text ui-widget-content ui-corner-all">
-					<input type="button" name="salinti" id="salinti" value="šalinti" class="text ui-widget-content ui-corner-all">
+					<input type="button"  value="keisti" class="keisti text ui-widget-content ui-corner-all">
+					<input type="button" name="salinti" value="šalinti" class="del text ui-widget-content ui-corner-all">
 				</tr>
 			</tr>
 		</table>
