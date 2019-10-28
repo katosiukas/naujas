@@ -1,0 +1,7 @@
+Nueiti į reikiamą aplanką. 
+*tada : mvnw clean package
+
+jei netinka JAVA home, tada set JAVA_HOME=
+Norint paleisti:
+*java -jar target/susirasti koki war/jar snapshota sukure target aplank ir nurodyti jo pavadinima.
+pvz: java -jar target/treniruote-0.0.1-SNAPSHOT.jar
